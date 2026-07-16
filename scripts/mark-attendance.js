@@ -2,6 +2,7 @@
  * التسجيل التلقائي اليومي للحضور — Saudi HR Pro
  * يعمل عبر GitHub Actions بجدولة يومية، مستقل عن فتح النظام في المتصفح.
  * يتخطّى الجمعة، ويحترم الإجازات المعتمدة، ولا يكرّر التسجيل.
+ * الدوام الموحّد: 08:00 إلى 16:00 (8 ساعات).
  * الأسرار تُقرأ من متغيّرات البيئة (GitHub Secrets).
  */
 
@@ -77,8 +78,8 @@ async function main() {
       empName: e.nameAr || e.nameEn || '',
       date: date,
       status: onLeave ? 'leave' : 'present',
-      timeIn: onLeave ? '' : '08:00',
-      timeOut: onLeave ? '' : '17:00',
+      timeIn: onLeave ? '' : (e.wStart || '08:00'),
+      timeOut: onLeave ? '' : (e.wEnd || '16:00'),
       overtime: 0,
       note: 'تسجيل تلقائي (GitHub Actions)',
       auto: true,
