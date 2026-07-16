@@ -2103,8 +2103,8 @@ tr.data-row:hover td{background:var(--primary-soft);}
         </div>
         <div class="form-group"><label>أيام العطلة الأسبوعية</label>
           <select id="set-weekend">
-            <option value="fri-sat" selected>الجمعة والسبت</option>
-            <option value="fri">الجمعة فقط</option>
+            <option value="fri-sat">الجمعة والسبت</option>
+            <option value="fri" selected>الجمعة فقط</option>
             <option value="sat-sun">السبت والأحد</option>
           </select>
         </div>
@@ -2557,7 +2557,7 @@ let settings=DB.loadObj('settings',{
   housingPct:25,
   gosiSA:10, gosiER:12, gosiExpat:2, currency:'SAR',
   gosiAlertDay:10, iqamaAlertDays:60, insAlertDays:30, contractAlertDays:30, passportAlertDays:60, alertSound:'on',
-  hours:8, defaultWStart:'08:00', defaultWEnd:'17:00', weekend:'fri-sat', otRate:1.5, workDays:30, deductLate:'on', autoAttend:'on',
+  hours:8, defaultWStart:'08:00', defaultWEnd:'17:00', weekend:'fri', otRate:1.5, workDays:30, deductLate:'on', autoAttend:'on',
   annualLT5:21, annualGT5:30, annualYears:5, sickDays:90, leaveCarry:'on', leaveAuto:'manual',
   fontSize:13, tableRows:50, dateFormat:'YYYY-MM-DD', showCurrency:'SAR'
 });
@@ -5401,7 +5401,7 @@ function loadSettings(){
   ss('set-passport-alert',settings.passportAlertDays||60);
   ss('set-alert-sound',settings.alertSound||'on');
   sv('set-hours',settings.hours||8);sv('set-default-wstart',settings.defaultWStart||'08:00');sv('set-default-wend',settings.defaultWEnd||'17:00');
-  ss('set-weekend',settings.weekend||'fri-sat');ss('set-ot-rate',settings.otRate||1.5);
+  ss('set-weekend',settings.weekend||'fri');ss('set-ot-rate',settings.otRate||1.5);
   ss('set-work-days',settings.workDays||30);ss('set-deduct-late',settings.deductLate||'on');ss('set-auto-attend',settings.autoAttend||'on');
   sv('set-annual-lt5',settings.annualLT5||21);sv('set-annual-gt5',settings.annualGT5||30);
   sv('set-leave-cap',settings.leaveCap||60);
@@ -5424,7 +5424,7 @@ function resetSettings(){
   settings={company:settings.company||'شركتي',payDay:25,payAlertDays:15,housingPct:25,housingEnabled:true,
     gosiSA:10,gosiER:12,gosiExpat:2,currency:'SAR',
     gosiAlertDay:10,iqamaAlertDays:60,insAlertDays:30,contractAlertDays:30,passportAlertDays:60,
-    alertSound:'on',hours:8,defaultWStart:'08:00',defaultWEnd:'17:00',weekend:'fri-sat',otRate:1.5,workDays:30,deductLate:'on',autoAttend:'on',
+    alertSound:'on',hours:8,defaultWStart:'08:00',defaultWEnd:'17:00',weekend:'fri',otRate:1.5,workDays:30,deductLate:'on',autoAttend:'on',
     annualLT5:21,annualGT5:30,annualYears:5,sickDays:90,leaveCarry:'on',leaveAuto:'manual',
     fontSize:13,tableRows:50,dateFormat:'YYYY-MM-DD',showCurrency:'SAR'};
   persist();loadSettings();toast('تم استعادة الافتراضي');
@@ -6581,7 +6581,7 @@ function saveExpense(){
 // ── الحضور والانصراف ──
 function isWeekendDay(d){
   const day=(d?new Date(d):new Date()).getDay(); // 0=أحد .. 5=جمعة 6=سبت
-  const w=settings.weekend||'fri-sat';
+  const w=settings.weekend||'fri';
   if(w==='fri')return day===5;
   if(w==='sat-sun')return day===6||day===0;
   return day===5||day===6;
